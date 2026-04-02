@@ -1,0 +1,210 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
+input[type=number]{-moz-appearance:textfield}
+.app{padding:1.5rem 1rem 2rem;font-family:var(--font-sans)}
+.hdr{text-align:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:0.5px solid var(--color-border-tertiary)}
+.hdr h1{font-size:20px;font-weight:500;color:var(--color-text-primary)}
+.hdr p{font-size:13px;color:var(--color-text-secondary);margin-top:4px}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-bottom:16px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:16px}
+.card-title{font-size:13px;font-weight:500;color:var(--color-text-secondary);margin-bottom:14px;text-transform:uppercase;letter-spacing:0.5px}
+.fg{margin-bottom:12px}
+.fg label{display:block;font-size:12px;color:var(--color-text-secondary);margin-bottom:5px}
+.fg input{width:100%;padding:8px 10px;font-size:14px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-secondary);color:var(--color-text-primary)}
+.fg input:focus{outline:none;border-color:var(--color-border-primary)}
+.grid2-inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.hint{font-size:11px;color:var(--color-text-tertiary);margin-top:3px}
+.tabs{display:flex;gap:3px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:3px;border:0.5px solid var(--color-border-tertiary);margin-bottom:8px}
+.tab{flex:1;padding:6px 4px;border:none;border-radius:6px;background:transparent;color:var(--color-text-secondary);font-family:var(--font-sans);font-size:12px;font-weight:500;cursor:pointer;transition:all 0.15s}
+.tab.on{background:var(--color-background-primary);color:var(--color-text-primary);border:0.5px solid var(--color-border-secondary)}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.metric{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px;text-align:center}
+.metric .mlbl{font-size:11px;color:var(--color-text-secondary);margin-bottom:4px}
+.metric .mval{font-size:20px;font-weight:500;color:var(--color-text-primary)}
+.metric .msub{font-size:11px;color:var(--color-text-tertiary);margin-top:2px}
+.shock .mval{color:var(--color-text-warning)}
+.tbar{display:flex;border-radius:6px;overflow:hidden;height:32px;border:0.5px solid var(--color-border-tertiary);margin:10px 0 6px}
+.tbar-d{background:var(--color-background-info);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--color-text-info)}
+.tbar-r{background:var(--color-background-warning);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--color-text-warning)}
+.tlabels{display:flex;justify-content:space-between;font-size:11px;color:var(--color-text-tertiary)}
+.stbl{width:100%;border-collapse:collapse;font-size:13px}
+.stbl td{padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary)}
+.stbl tr:last-child td{border-bottom:none}
+.stbl td:last-child{text-align:right;font-weight:500}
+.hi{color:var(--color-text-warning)}
+.toggle-btn{background:transparent;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:6px 14px;font-size:12px;font-weight:500;color:var(--color-text-secondary);cursor:pointer;font-family:var(--font-sans)}
+.atbl{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}
+.atbl th{text-align:right;font-size:11px;color:var(--color-text-secondary);padding:6px 8px;border-bottom:0.5px solid var(--color-border-primary);font-weight:500}
+.atbl th:first-child{text-align:left}
+.atbl td{text-align:right;padding:6px 8px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary)}
+.atbl td:first-child{text-align:left;font-weight:500}
+.atbl .draw-r td:first-child{color:var(--color-text-info)}
+.atbl .repay-r td:first-child{color:var(--color-text-warning)}
+.atbl .break-r td{border-top:1px solid var(--color-border-warning)}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0}
+</style>
+
+<div class="app">
+<div class="hdr">
+  <h1>HELOC payment calculator</h1>
+  <p>Interest-only draw period → principal & interest repayment</p>
+</div>
+
+<div class="grid2">
+  <div>
+    <div class="card">
+      <div class="card-title">HELOC details</div>
+      <div class="fg">
+        <label>Credit line amount ($)</label>
+        <input type="number" id="amt" value="80000" step="1000">
+      </div>
+      <div class="grid2-inner">
+        <div class="fg">
+          <label>Draw period (yrs)</label>
+          <input type="number" id="dy" value="10" min="1" max="15">
+          <div class="hint">Interest only</div>
+        </div>
+        <div class="fg">
+          <label>Repayment (yrs)</label>
+          <input type="number" id="ry" value="20" min="1" max="30">
+          <div class="hint">Principal + interest</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Interest rates</div>
+      <div class="fg">
+        <label>Draw period rate (%)</label>
+        <input type="number" id="dr" value="8.5" step="0.125">
+        <div class="hint">Variable — Prime + margin</div>
+      </div>
+      <div class="fg">
+        <label>Repayment period rate</label>
+        <div class="tabs">
+          <button class="tab on" data-s="same">Same</button>
+          <button class="tab" data-s="p1">+1%</button>
+          <button class="tab" data-s="p2">+2%</button>
+          <button class="tab" data-s="custom">Custom</button>
+        </div>
+        <input type="number" id="rr" value="9.0" step="0.125" style="display:none">
+        <div class="hint" id="rr-hint"></div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="metrics">
+      <div class="metric">
+        <div class="mlbl">Interest only</div>
+        <div class="mval" id="m-io">—</div>
+        <div class="msub" id="m-io-s"></div>
+      </div>
+      <div class="metric">
+        <div class="mlbl">P&I payment</div>
+        <div class="mval" id="m-pi">—</div>
+        <div class="msub" id="m-pi-s"></div>
+      </div>
+      <div class="metric shock">
+        <div class="mlbl">Payment shock</div>
+        <div class="mval" id="m-sh">—</div>
+        <div class="msub" id="m-sh-s"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Loan timeline</div>
+      <div class="tbar">
+        <div class="tbar-d" id="tbar-d"></div>
+        <div class="tbar-r" id="tbar-r"></div>
+      </div>
+      <div class="tlabels">
+        <span>Year 0</span>
+        <span id="tl-mid"></span>
+        <span id="tl-end"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Cost breakdown</div>
+      <table class="stbl">
+        <tr><td>HELOC amount</td><td id="s-bal">—</td></tr>
+        <tr><td>Interest (draw period)</td><td class="hi" id="s-di">—</td></tr>
+        <tr><td>Interest (repayment)</td><td class="hi" id="s-ri">—</td></tr>
+        <tr><td><strong>Total interest paid</strong></td><td class="hi" id="s-ti"><strong>—</strong></td></tr>
+        <tr><td><strong>Total cost of HELOC</strong></td><td class="hi" id="s-tc"><strong>—</strong></td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="card-title" style="margin-bottom:0">Yearly amortization schedule</div>
+    <button class="toggle-btn" id="sched-btn">Show schedule ▼</button>
+  </div>
+  <div id="sched-wrap" style="display:none"></div>
+</div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const fmt = n => '$' + Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const pct = n => n.toFixed(3) + '%';
+
+let scenario = 'same';
+let showSched = false;
+
+document.querySelectorAll('.tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    scenario = btn.dataset.s;
+    document.querySelectorAll('.tab').forEach(b => b.classList.toggle('on', b.dataset.s === scenario));
+    $('rr').style.display = scenario === 'custom' ? 'block' : 'none';
+    calc();
+  });
+});
+
+$('sched-btn').addEventListener('click', () => {
+  showSched = !showSched;
+  $('sched-wrap').style.display = showSched ? 'block' : 'none';
+  $('sched-btn').textContent = showSched ? 'Hide schedule ▲' : 'Show schedule ▼';
+});
+
+['amt','dr','rr','dy','ry'].forEach(id => $(`${id}`).addEventListener('input', calc));
+
+function calc() {
+  const bal = parseFloat($('amt').value) || 0;
+  const dr = (parseFloat($('dr').value) || 0) / 100;
+  const baseRR = parseFloat($('dr').value) || 0;
+  const dy = parseInt($('dy').value) || 10;
+  const ry = parseInt($('ry').value) || 20;
+  
+  let rr;
+  if (scenario === 'same') rr = baseRR / 100;
+  else if (scenario === 'p1') rr = (baseRR + 1) / 100;
+  else if (scenario === 'p2') rr = (baseRR + 2) / 100;
+  else rr = (parseFloat($('rr').value) || 0) / 100;
+  
+  const rrPct = rr * 100;
+  
+  if (scenario !== 'custom') {
+    $('rr-hint').textContent = 'Repayment rate: ' + pct(rrPct);
+  } else {
+    $('rr-hint').textContent = '';
+  }
+
+  const io = bal * (dr / 12);
+  const mrr = rr / 12;
+  const rm = ry * 12;
+  let pi = 0;
+  if (mrr > 0 && rm > 0) {
+    pi = bal * (mrr * Math.pow(1+mrr,rm)) / (Math.pow(1+mrr,rm) - 1);
+  } else if (rm > 0) {
+    pi = bal / rm;
+  }
+  
+  const shock = pi - io;
+  const shockPct = io > 0 ? (shock / io) * 100 : 0;
+  const tdi = io * (dy *
